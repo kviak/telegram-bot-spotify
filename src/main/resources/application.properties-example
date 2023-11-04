@@ -1,0 +1,7 @@
+#Spotify
+spotify.clientId=
+spotify.clientSecret=
+
+#Telegram
+telegram.bot.token=
+telegram.bot.name=
