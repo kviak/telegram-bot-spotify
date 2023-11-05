@@ -2,6 +2,7 @@ package ru.kviak.telegrambotspotify.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -40,6 +41,11 @@ public class SpotifyTelegramBot extends TelegramLongPollingBot {
             execute(outMess);
         }
     }
+    @Scheduled(fixedRate = 60000)
+    public void scheduledSpotifyListTrack() throws Exception {
+        refreshAuthorizationCodeSpotify.authorizationCodeRefresh_Sync();
+        spotifyService.addToList();
+    }
 
     public String parseMessage(String textMsg) throws Exception {
         String response;
@@ -49,6 +55,9 @@ public class SpotifyTelegramBot extends TelegramLongPollingBot {
         else if(textMsg.equals("/track")){
             refreshAuthorizationCodeSpotify.authorizationCodeRefresh_Sync(); // При каждом сообщении вызывается метод для обновления токена спотифай
             response = spotifyService.getUserCurrentlyPlayingTrack_Sync();}
+        else if(textMsg.equals("/last")){
+            refreshAuthorizationCodeSpotify.authorizationCodeRefresh_Sync(); // При каждом сообщении вызывается метод для обновления токена спотифай
+            response = spotifyService.getLastListenTracks();}
         else response = "Sorry, but I do not know this command!";
 
         return response;
