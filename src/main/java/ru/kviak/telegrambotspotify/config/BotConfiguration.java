@@ -1,12 +1,13 @@
 package ru.kviak.telegrambotspotify.config;
 
 import lombok.Data;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @Data
+@ConfigurationProperties("telegram.bot")
 public class BotConfiguration {
-    @Value("${telegram.bot.name}") String botName;
-    @Value("${telegram.bot.token}") String token;
+    private String name;
+    private String token;
 }

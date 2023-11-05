@@ -1,6 +1,10 @@
+#Server
+server.port=
+
 #Spotify
 spotify.clientId=
 spotify.clientSecret=
+spotify.refreshToken=
 
 #Telegram
 telegram.bot.token=

@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import se.michaelthelin.spotify.SpotifyApi;
 import se.michaelthelin.spotify.requests.authorization.authorization_code.AuthorizationCodeRefreshRequest;
-import se.michaelthelin.spotify.requests.data.player.GetUsersCurrentlyPlayingTrackRequest;
 
 @Getter
 @Setter
@@ -32,9 +31,4 @@ public class SpotifyApiConfig {
     public AuthorizationCodeRefreshRequest authorizationCodeRefreshRequest() {
         return spotifyApi().authorizationCodeRefresh().build();
     }
-
-//    @Bean
-//    public GetUsersCurrentlyPlayingTrackRequest getUsersCurrentlyPlayingTrackRequest() {
-//        return spotifyApi().getUsersCurrentlyPlayingTrack().build();
-//    }
 }

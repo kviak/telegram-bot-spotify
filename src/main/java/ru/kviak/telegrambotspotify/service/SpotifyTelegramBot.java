@@ -19,7 +19,7 @@ public class SpotifyTelegramBot extends TelegramLongPollingBot {
     private final SpotifyService spotifyService;
 
     @Override
-    public String getBotUsername() { return botConfiguration.getBotName(); }
+    public String getBotUsername() { return botConfiguration.getName(); }
     @Override
     public String getBotToken() { return botConfiguration.getToken(); }
 
