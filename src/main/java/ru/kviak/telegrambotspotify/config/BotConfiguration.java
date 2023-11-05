@@ -9,5 +9,4 @@ import org.springframework.context.annotation.Configuration;
 public class BotConfiguration {
     @Value("${telegram.bot.name}") String botName;
     @Value("${telegram.bot.token}") String token;
-    @Value("${telegram.bot.chatId}") String chatId;
 }
