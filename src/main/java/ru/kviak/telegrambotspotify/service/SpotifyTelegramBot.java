@@ -51,8 +51,8 @@ public class SpotifyTelegramBot extends TelegramLongPollingBot {
         String response;
 
         switch (textMsg) {
-            case "/start" -> {
-                response = "Welcome to 'Kviak Bot', if you want to get Denis listen track send me /track.";
+            case "/help" -> {
+                response = "Welcome to 'Kviak Bot'. List available commands: /now, /last, /top-track, /top-artist, /help";
             }
             case "/now" -> {
                 refreshAuthorizationCodeSpotify.authorizationCodeRefresh_Sync();
@@ -72,7 +72,6 @@ public class SpotifyTelegramBot extends TelegramLongPollingBot {
             }
             default -> response = "Sorry, but I do not know this command!";
         }
-
         return response;
     }
 }

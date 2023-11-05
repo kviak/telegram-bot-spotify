@@ -27,12 +27,16 @@ public class SpotifyService {
     }
 
     public String getLastListenTracks() {
-        return songList.toString();
+        StringBuilder stringBuilder = new StringBuilder();
+        songList.forEach(s -> {
+            stringBuilder.append(s).append("\n");
+        });
+        return stringBuilder.toString();
     }
 
     public void addToList() throws Exception { // TODO: Rework, look like parawa
         if (!songList.contains(getCurrentTrack())) {
-            if (songList.size() < 10) {
+            if (songList.size() < 20) {
                 songList.add(getCurrentTrack());
             }
             else songList.remove(0);
