@@ -50,15 +50,28 @@ public class SpotifyTelegramBot extends TelegramLongPollingBot {
     public String parseMessage(String textMsg) throws Exception {
         String response;
 
-        if(textMsg.equals("/start"))
-            response = "Welcome to 'Kviak Bot', if you want to get Denis listen track send me /track.";
-        else if(textMsg.equals("/track")){
-            refreshAuthorizationCodeSpotify.authorizationCodeRefresh_Sync(); // При каждом сообщении вызывается метод для обновления токена спотифай
-            response = spotifyService.getUserCurrentlyPlayingTrack_Sync();}
-        else if(textMsg.equals("/last")){
-            refreshAuthorizationCodeSpotify.authorizationCodeRefresh_Sync(); // При каждом сообщении вызывается метод для обновления токена спотифай
-            response = spotifyService.getLastListenTracks();}
-        else response = "Sorry, but I do not know this command!";
+        switch (textMsg) {
+            case "/start" -> {
+                response = "Welcome to 'Kviak Bot', if you want to get Denis listen track send me /track.";
+            }
+            case "/now" -> {
+                refreshAuthorizationCodeSpotify.authorizationCodeRefresh_Sync();
+                response = spotifyService.getUserCurrentlyPlayingTrack_Sync();
+            }
+            case "/last" -> {
+                refreshAuthorizationCodeSpotify.authorizationCodeRefresh_Sync();
+                response = spotifyService.getLastListenTracks();
+            }
+            case "/top-track" -> {
+                refreshAuthorizationCodeSpotify.authorizationCodeRefresh_Sync();
+                response = spotifyService.getTopTracks();
+            }
+            case "/top-artist" -> {
+                refreshAuthorizationCodeSpotify.authorizationCodeRefresh_Sync();
+                response = spotifyService.getTopArtist();
+            }
+            default -> response = "Sorry, but I do not know this command!";
+        }
 
         return response;
     }

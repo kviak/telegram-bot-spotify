@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import se.michaelthelin.spotify.SpotifyApi;
 import se.michaelthelin.spotify.model_objects.IPlaylistItem;
 import se.michaelthelin.spotify.model_objects.miscellaneous.CurrentlyPlaying;
+import se.michaelthelin.spotify.model_objects.specification.Artist;
 import se.michaelthelin.spotify.model_objects.specification.Track;
 
 import java.util.ArrayList;
@@ -54,5 +55,25 @@ public class SpotifyService {
             return response.substring(0, response.length()-2);
         }
         return null;
+    }
+
+    public String getTopTracks() throws Exception{
+        Track[] arr = spotifyApi.getUsersTopTracks().time_range("long_term").build().execute().getItems(); // Top track all the time.
+        StringBuilder response = new StringBuilder();
+
+        for (int i = 0; i < arr.length; i++) {
+            response.append(i+1).append(": ").append(arr[i].getName()).append(" - ").append(arr[i].getArtists()[0].getName()).append("\n");
+        }
+        return response.toString();
+    }
+
+    public String getTopArtist() throws Exception{
+        Artist[] arr = spotifyApi.getUsersTopArtists().time_range("long_term").build().execute().getItems();
+        StringBuilder response = new StringBuilder();
+
+        for (int i = 0; i < arr.length; i++) {
+            response.append(i+1).append(": ").append(arr[i].getName()).append("\n");
+        }
+        return response.toString();
     }
 }
