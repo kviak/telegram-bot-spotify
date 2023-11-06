@@ -34,16 +34,21 @@ public class SpotifyService {
         return stringBuilder.toString();
     }
 
-    public void addToList() throws Exception { // TODO: Rework, look like parawa
-        if (!songList.contains(getCurrentTrack())) {
+    public void addToList() throws Exception {
+        String currentTrack = getCurrentTrack();
+
+        if (!songList.contains(currentTrack) && currentTrack != null) {
             if (songList.size() < 20) {
-                songList.add(getCurrentTrack());
+                songList.add(currentTrack);
             }
-            else songList.remove(0);
+            else {
+                songList.remove(0);
+                songList.add(currentTrack);
+            }
         }
     }
 
-    public String getCurrentTrack() throws Exception{ // TODO: rework too
+    public String getCurrentTrack() throws Exception { // TODO: rework too
         CurrentlyPlaying currentlyPlaying = spotifyApi.getUsersCurrentlyPlayingTrack().build().execute();
         if (currentlyPlaying == null) return null;
 
@@ -61,7 +66,7 @@ public class SpotifyService {
         return null;
     }
 
-    public String getTopTracks() throws Exception{
+    public String getTopTracks() throws Exception {
         Track[] arr = spotifyApi.getUsersTopTracks().time_range("long_term").build().execute().getItems(); // Top track all the time.
         StringBuilder response = new StringBuilder();
 
@@ -71,7 +76,7 @@ public class SpotifyService {
         return response.toString();
     }
 
-    public String getTopArtist() throws Exception{
+    public String getTopArtist() throws Exception {
         Artist[] arr = spotifyApi.getUsersTopArtists().time_range("long_term").build().execute().getItems();
         StringBuilder response = new StringBuilder();
 
