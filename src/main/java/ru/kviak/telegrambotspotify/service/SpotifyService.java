@@ -1,11 +1,14 @@
 package ru.kviak.telegrambotspotify.service;
 
+import com.neovisionaries.i18n.CountryCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import se.michaelthelin.spotify.SpotifyApi;
 import se.michaelthelin.spotify.model_objects.IPlaylistItem;
 import se.michaelthelin.spotify.model_objects.miscellaneous.CurrentlyPlaying;
+import se.michaelthelin.spotify.model_objects.specification.AlbumSimplified;
 import se.michaelthelin.spotify.model_objects.specification.Artist;
+import se.michaelthelin.spotify.model_objects.specification.SavedTrack;
 import se.michaelthelin.spotify.model_objects.specification.Track;
 
 import java.util.ArrayList;
@@ -83,6 +86,22 @@ public class SpotifyService {
         for (int i = 0; i < arr.length; i++) {
             response.append(i+1).append(": ").append(arr[i].getName()).append("\n");
         }
+        return response.toString();
+    }
+
+    public String getSavedTrack() throws Exception{
+        StringBuilder response = new StringBuilder();
+        SavedTrack[] savedTrack = spotifyApi.getUsersSavedTracks().build().execute().getItems();
+
+        for (int i = 0; i < savedTrack.length; i++) {
+            response.append(i+1)
+                    .append(": ")
+                    .append(savedTrack[i].getTrack().getName())
+                    .append(" ")
+                    .append(savedTrack[i].getTrack().getArtists()[0].getName())
+                    .append("\n");
+        }
+
         return response.toString();
     }
 }
