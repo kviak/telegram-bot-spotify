@@ -48,7 +48,7 @@ public class SpotifyService {
         }
     }
 
-    public String getCurrentTrack() throws Exception { // TODO: rework too
+    public String getCurrentTrack() throws Exception {
         CurrentlyPlaying currentlyPlaying = spotifyApi.getUsersCurrentlyPlayingTrack().build().execute();
         if (currentlyPlaying == null) return null;
 
