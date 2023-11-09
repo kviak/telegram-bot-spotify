@@ -8,12 +8,12 @@ import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
-import ru.kviak.telegrambotspotify.service.SpotifyTelegramBot;
+import ru.kviak.telegrambotspotify.service.TelegramBot;
 
 @Component
 @RequiredArgsConstructor
 public class Initializer {
-    private final SpotifyTelegramBot bot;
+    private final TelegramBot bot;
 
     @EventListener({ContextRefreshedEvent.class})
     public void init() {

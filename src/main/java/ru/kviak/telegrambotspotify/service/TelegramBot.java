@@ -8,13 +8,13 @@ import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import ru.kviak.telegrambotspotify.config.BotConfiguration;
+import ru.kviak.telegrambotspotify.config.TelegramBotConfiguration;
 
 @RequiredArgsConstructor
 @Component
-public class SpotifyTelegramBot extends TelegramLongPollingBot {
+public class TelegramBot extends TelegramLongPollingBot {
 
-    private final BotConfiguration botConfiguration;
+    private final TelegramBotConfiguration botConfiguration;
     private final RefreshAuthorizationCodeSpotify refreshAuthorizationCodeSpotify;
     private final SpotifyService spotifyService;
 
@@ -28,16 +28,13 @@ public class SpotifyTelegramBot extends TelegramLongPollingBot {
     public void onUpdateReceived(Update update) {
         if(update.hasMessage() && update.getMessage().hasText())
         {
-            //Извлекаем из объекта сообщение пользователя
             Message inMess = update.getMessage();
-            //Получаем текст сообщения пользователя, отправляем в написанный обработчик
             String response = parseMessage(update.getMessage().getText());
-            //Создаем объект класса SendMessage - наш будущий ответ пользователю
             SendMessage outMess = new SendMessage();
-            //Добавляем в наше сообщение id чата а также наш ответ
+
             outMess.setChatId(inMess.getChatId());
             outMess.setText(response);
-            //Отправка в чат
+
             execute(outMess);
         }
     }
@@ -51,8 +48,11 @@ public class SpotifyTelegramBot extends TelegramLongPollingBot {
         String response;
 
         switch (textMsg) {
-            case "/help" -> {
+            case "/start" -> {
                 response = "Welcome to 'Kviak Bot'. List available commands: /now, /last, /top-track, /top-artist, /help";
+            }
+            case "/help" -> {
+                response = "Command list: /now, /last, /top-track, /top-artist, /help";
             }
             case "/now" -> {
                 refreshAuthorizationCodeSpotify.authorizationCodeRefresh_Sync();
