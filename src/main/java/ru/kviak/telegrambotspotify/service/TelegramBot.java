@@ -70,6 +70,10 @@ public class TelegramBot extends TelegramLongPollingBot {
                 refreshAuthorizationCodeSpotify.authorizationCodeRefresh_Sync();
                 response = spotifyService.getTopArtist();
             }
+            case "/saved" -> {
+                refreshAuthorizationCodeSpotify.authorizationCodeRefresh_Sync();
+                response = spotifyService.getSavedTrack();
+            }
             default -> response = "Sorry, but I do not know this command!";
         }
         return response;
