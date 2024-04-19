@@ -1,12 +1,10 @@
 package ru.kviak.telegrambotspotify.service;
 
-import com.neovisionaries.i18n.CountryCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import se.michaelthelin.spotify.SpotifyApi;
 import se.michaelthelin.spotify.model_objects.IPlaylistItem;
 import se.michaelthelin.spotify.model_objects.miscellaneous.CurrentlyPlaying;
-import se.michaelthelin.spotify.model_objects.specification.AlbumSimplified;
 import se.michaelthelin.spotify.model_objects.specification.Artist;
 import se.michaelthelin.spotify.model_objects.specification.SavedTrack;
 import se.michaelthelin.spotify.model_objects.specification.Track;
@@ -31,9 +29,7 @@ public class SpotifyService {
 
     public String getLastListenTracks() {
         StringBuilder stringBuilder = new StringBuilder();
-        songList.forEach(s -> {
-            stringBuilder.append(s).append("\n");
-        });
+        songList.forEach(s -> stringBuilder.append(s).append("\n"));
         return stringBuilder.toString();
     }
 
